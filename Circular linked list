@@ -1,0 +1,196 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+int data;
+struct node *next;
+};
+struct node *head=NULL;
+void create();
+void insert_begin();
+void insert_end();
+void insert_any();
+void delete_begin();
+void delete_end();
+void delete_any();
+void display();
+void main()
+{
+int ch;
+do
+{
+printf("1. CREATE\n");
+printf("2.INSERT AT BEGIN\n");
+printf("3.INSERT AT END\n");
+printf("4.INSERT AT ANY POSITION\n");
+printf("5.DELETION AT BEGIN\n");
+
+printf("6.DELETION AT END\n");
+printf("7.DELETION AT ANY POSITION\n");
+printf("8. DISPLAY\n");
+printf("9. EXIT\n");
+printf("enter your choice");
+scanf("%d",&ch);
+switch(ch)
+{
+case 1: create();
+break;
+case 2: insert_begin();
+break;
+case 3: insert_end();
+break;
+case 4: insert_any();
+break;
+case 5: delete_begin();
+break;
+case 6: delete_end();
+break;
+case 7: delete_any();
+break;
+case 8: display();
+break;
+case 9: exit(0);
+break;
+default: printf("Invalid choice");
+}
+}while(1);
+}
+
+void create()
+{
+struct node *newnode,*p;
+int ele;
+char ch;
+do
+{
+newnode=(struct node*)malloc(sizeof(struct node));
+printf("enter the data");
+scanf("%d",&ele);
+newnode->data=ele;
+if(head==NULL)
+{
+newnode->next=newnode;
+head=newnode;
+}
+else
+{
+p=head;
+while(p->next!=head)
+p=p->next;
+p->next=newnode;
+newnode->next=head;
+}
+printf("Do you want to continue");
+scanf(" %c",&ch);
+}while(ch!='n');
+}
+void insert_begin()
+{
+struct node *newnode;
+int ele;
+newnode=(struct node*)malloc(sizeof(struct node));
+printf("enter the data");
+scanf("%d",&ele);
+newnode->data=ele;
+newnode->next=head;
+p=head;
+while(p->next!=head)
+p=p->next;
+p->next=newnode;
+head=newnode;
+}
+void insert_end()
+{
+struct node *newnode,*p;
+int ele;
+newnode=(struct node*)malloc(sizeof(struct node));
+
+printf("enter the data");
+scanf("%d",&ele);
+newnode->data=ele;
+p=head;
+while(p->next!=head)
+p=p->next;
+p->next=newnode;
+newnode->next=head;
+}
+void insert_any()
+{
+struct node *newnode,*p;
+int ele,key;
+printf("enter the key");
+scanf("%d",&key);
+p=head;
+while(p->data!=key && p->next!=head)
+p=p->next;
+if(p->next==head)
+printf("Key is not available");
+else
+{
+newnode=(struct node*)malloc(sizeof(struct node));
+printf("enter the data");
+scanf("%d",&ele);
+newnode->data=ele;
+newnode->next=p->next;
+p->next=newnode;
+}
+}
+void delete_begin()
+{
+struct node *p;
+p=head;
+while(p->next!=head)
+p=p->next;
+p->next=head->next;
+free(p);
+head=p->next;
+}
+void delete_end()
+{
+struct node *p,*prev;
+p=head;
+while(p->next!=head)
+{
+prev=p;
+p=p->next;
+}
+
+prev->next=head;
+free(p);
+}
+void delete_any()
+{
+struct node *p,*prev;
+int key;
+printf("enter the key");
+scanf("%d",&key);
+p=head;
+while(p->data!=key && p->next!=head)
+{
+prev=p;
+p=p->next;
+}
+if(p->next==NULL)
+printf("key is not available");
+else
+{
+prev->next=p->next;
+free(p);
+}
+}
+void display()
+{
+struct node *p;
+p=head;
+if(p==NULL)
+printf("Linked list is empty");
+else
+{
+do
+{
+printf("%d->",p->data);
+p=p->next;
+}while(p!=head);
+printf(“NULL”);
+}
+}
