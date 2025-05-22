@@ -1,0 +1,54 @@
+/*program to evaluate postfix expression*/
+#include<stdio.h>
+#include<ctype.h>
+#include<string.h>
+#define MAX 20
+void push(int ele);
+int pop();
+int stack[MAX],top=-1;
+void main()
+{
+char postfix[20],ch;
+int i,op1,op2;
+printf("Enter postfix expression");
+scanf("%s",postfix);
+for(i=0;i<strlen(postfix);i++)
+{
+ch=postfix[i];
+if(isdigit(ch))
+push(ch-'0');
+else
+{
+op2=pop();
+op1=pop();
+switch(ch)
+{
+case '+': push(op1+op2);
+break;
+case '-': push(op1-op2);
+break;
+case '*': push(op1*op2);
+break;
+case '/': push(op1/op2);
+break;
+}
+}
+}
+printf("Result of postfix expression %s is %d",postfix,stack[top]);
+}
+
+void push(int ele)
+{
+if(top==MAX-1)
+printf("OVERFLOW");
+else
+{
+top=top+1;
+stack[top]=ele;
+}
+}
+int pop()
+{
+return stack[top--];
+}
+
