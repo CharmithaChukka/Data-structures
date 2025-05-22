@@ -1,0 +1,50 @@
+/*program o check balanced parenthesis using stack*/
+#include<stdio.h>
+#define MAX 20
+void push(char ele);
+char pop();
+char stack[MAX];
+int top=-1;
+void main()
+{
+char exp[20],ch,temp;
+int i,flag=1;
+printf("enter expression");
+scanf("%s",exp);
+for(i=0;exp[i]!='\0';i++)
+{
+ch=exp[i];
+if(ch=='('||ch=='{'||ch=='[')
+push(ch);
+else if((ch==')'||ch==']'||ch=='}')&&top==-1)
+flag=0;
+else
+{
+temp=pop();
+if(((ch==')')&&(temp!='('))||((ch=='}')&&(temp!='{'))||((ch==']')&&(temp!='[')))
+flag=0;
+}
+}
+
+if(flag==1)
+printf("Balanced parenthesis");
+else
+printf("Not balanced");
+}
+void push(char ele)
+{
+if(top==MAX-1)
+printf("OVERFLOW");
+else
+{
+top=top+1;
+stack[top]=ele;
+}
+}
+char pop()
+{
+if(top==-1)
+printf("UNDERFLOW");
+else
+return stack[top--];
+}
