@@ -1,0 +1,83 @@
+/*program to detect and remove duplicates from linked list*/
+#include <stdio.h>
+#include<stdlib.h>
+struct node
+{
+int data;
+struct node *next;
+};
+struct node *head=NULL;
+void create();
+void removeduplicates();
+void display();
+void main()
+{
+create();
+printf("Linked list with duplicates is\n");
+display();
+removeduplicates();
+printf("After removing duplicates linked list is\n");
+display();
+}
+void create()
+{
+struct node *newnode,*p;
+int ele;
+char ch;
+do
+{
+newnode=(struct node*)malloc(sizeof(struct node));
+printf("enter the data");
+scanf("%d",&ele);
+newnode->data=ele;
+newnode->next=NULL;
+if(head==NULL)
+head=newnode;
+else
+{
+p=head;
+while(p->next!=NULL)
+p=p->next;
+p->next=newnode;
+}
+printf("Do you want to continue");
+scanf(" %c",&ch);
+}while(ch!='n');
+}
+
+void removeduplicates()
+{
+struct node *p,*q,*temp;
+p=head;
+while(p!=NULL)
+{
+temp=p;
+q=p->next;
+while(q!=NULL)
+{
+if(p->data==q->data)
+{
+temp->next=q->next;
+free(q);
+q=temp->next;
+}
+else
+{
+temp=q;
+q=q->next;
+}
+}
+p=p->next;
+}
+}
+void display()
+{
+struct node *p;
+p=head;
+while(p!=NULL)
+{
+printf("%d->",p->data);
+p=p->next;
+}
+printf("NULL\n");
+}
