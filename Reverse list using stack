@@ -1,0 +1,41 @@
+/*program to reverse a list of elements using stack*/
+#include<stdio.h>
+#define MAX 20
+void push(int ele);
+int pop();
+int stack[MAX],top=-1;
+void main()
+{
+int a[20],n,i;
+printf("enter size of list");
+scanf("%d",&n);
+printf("enter elements");
+for(i=0;i<n;i++)
+{
+scanf("%d",&a[i]);
+}
+
+for(i=0;i<n;i++)
+{
+push(a[i]);
+}
+printf("After reversing list of elements are\n");
+for(i=0;i<n;i++)
+{
+printf("%d\t",pop());
+}
+}
+void push(int ele)
+{
+if(top==MAX-1)
+printf("OVERFLOW");
+else
+{
+top=top+1;
+stack[top]=ele;
+}
+}
+int pop()
+{
+return stack[top--];
+}
