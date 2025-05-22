@@ -1,0 +1,71 @@
+/*Program to reverse a linked list by using iterative function*/
+#include <stdio.h>
+#include<stdlib.h>
+struct node
+{
+int data;
+struct node *next;
+};
+struct node *head=NULL;
+void create();
+void reverse();
+void display();
+void main()
+{
+create();
+printf("Before reversing Linked list is\n");
+display();
+reverse();
+printf("After reversing linked list is\n");
+display();
+}
+void create()
+{
+struct node *newnode,*p;
+int ele;
+char ch;
+do
+{
+newnode=(struct node*)malloc(sizeof(struct node));
+printf("enter the data");
+scanf("%d",&ele);
+newnode->data=ele;
+newnode->next=NULL;
+if(head==NULL)
+head=newnode;
+else
+{
+p=head;
+while(p->next!=NULL)
+p=p->next;
+p->next=newnode;
+}
+printf("Do you want to continue");
+scanf(" %c",&ch);
+}while(ch!='n');
+}
+
+void reverse()
+{
+struct node *p,*q,*prev=NULL;
+p=head;
+while(p!=NULL)
+{
+q=p->next;
+p->next=prev;
+prev=p;
+p=q;
+}
+head=prev;
+}
+void display()
+{
+struct node *p;
+p=head;
+while(p!=NULL)
+{
+printf("%d->",p->data);
+p=p->next;
+}
+printf("NULL\n");
+}
