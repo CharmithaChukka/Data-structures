@@ -1,0 +1,46 @@
+/*Program to implement selection sort*/
+#include<stdio.h>
+void selectionsort(int a[], int n);
+int smallest(int a[], int n, int k);
+void main()
+{
+int x[50], n, i;
+printf(“enter the size of the list”):
+scanf(“%d”, &n);
+printf(“enter elements”);
+for(i=0;i<n;i++)
+{
+scanf(“%d”, &x[i]);
+}
+selectionsort(x, n);
+printf(“After sorting elements are\n”);
+for(i=0;i<n;i++)
+{
+printf(“%d”, x[i]);
+}
+}
+void selectionsort(int a[], int n)
+{
+int pos, i, temp;
+for(i=0;i<n;i++)
+{
+pos=smallest(a, n, i);
+temp=a[i];
+a[i]=a[pos];
+a[pos]=temp;
+}
+}
+int smallest(int a[], int n, int k)
+{
+int I, pos=k, small=a[k];
+for(i=k+1;i<n;i++)
+{
+if(a[i]<small)
+{
+small=a[i];
+pos=i;
+
+}
+}
+return pos;
+}
