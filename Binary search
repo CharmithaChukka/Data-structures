@@ -1,0 +1,38 @@
+/* program to implement binary search technique*/
+#include<stdio.h>
+int binarysearch( int x[], int n, int ele);
+void main()
+{
+int a[50], n, se, i, pos;
+printf(“enter the size of the list”);
+scanf(“%d”, &n);
+printf(“enter elements”);
+for(i=0;i<n;i++)
+{
+scanf(“%d”,&a[i]);
+
+}
+printf(“enter searching element”);
+scanf(“%d”,&se);
+pos=binarysearch(a,n,se);
+if(pos!=-1)
+printf(“element %d is found at position %d”, se, pos+1);
+else
+printf(“element is not found”);
+}
+int binarysearch (int x[], int n, int ele)
+{
+int low, high, mid;
+low=0, high= n-1;
+while(low<=high)
+{
+mid = (low+high)/2;
+if(ele==a[mid])
+return mid;
+else if(ele>a[mid])
+low = mid+1;
+else
+high = mid -1;
+}
+return -1;
+}
