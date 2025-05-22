@@ -1,0 +1,47 @@
+/*program to check whether the string is palindrome or not using stack*/
+#include<stdio.h>
+#include<string.h>
+#define MAX 20
+void push(char ele);
+char pop();
+char stack[MAX];
+int top=-1;
+void main()
+{
+char s1[20];
+int i,count=0,len;
+printf("Enter a string");
+scanf("%s",s1);
+len=strlen(s1);
+for(i=0;i<len;i++)
+{
+push(s1[i]);
+}
+
+for(i=0;i<len;i++)
+{
+if(s1[i]==pop())
+count++;
+}
+if(len==count)
+printf("String %s is palindrome",s1);
+else
+printf("String %s is not palindrome",s1);
+}
+void push(char ele)
+{
+if(top==MAX-1)
+printf("OVERFLOW");
+else
+{
+top=top+1;
+stack[top]=ele;
+}
+}
+char pop()
+{
+if(top==-1)
+printf("UNDERFLOW");
+else
+return stack[top--];
+}
