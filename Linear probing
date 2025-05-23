@@ -1,0 +1,55 @@
+/*program to implement linear probing technique*/
+#include<stdio.h>
+#define MAX 10
+int hash_table[MAX];
+void linear_probe(int key,int ele);
+void display();
+void main()
+{
+int i,ele,key;
+char ch;
+for(i=0;i<MAX;i++)
+hash_table[i]=-1;
+do{
+printf("enter an element");
+scanf("%d",&ele);
+key=ele%MAX;
+linear_probe(key,ele);
+printf("do you want to continue");
+scanf(" %c",&ch);
+}while(ch!='n');
+display();
+}
+void linear_probe(int key,int ele)
+{
+int i;
+if(hash_table[key]==-1)
+hash_table[key]=ele;
+else
+{
+printf("collision detected\n");
+i=(key+1)%MAX;
+while(i!=key)
+{
+if(hash_table[i]==-1)
+
+{
+hash_table[i]=ele;
+printf("collision is resolved\n");
+return;
+}
+i=(i+1)%MAX;
+}
+printf("Hash table is full");
+}
+}
+void display()
+{
+int i;
+printf("Hash table contents are\n");
+printf("Index\tData\n");
+for(i=0;i<MAX;i++)
+{
+printf("%d\t%d\n",i,hash_table[i]);
+}
+}
