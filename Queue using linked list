@@ -1,0 +1,90 @@
+/*program to implement queue using linked list*/
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+int data;
+struct node *next;
+};
+struct node *front=NULL,*rear=NULL;
+void enqueue(int ele);
+int dequeue();
+void display();
+void main()
+{
+int ch,ele;
+do
+{
+printf("1.ENQUEUE\n");
+printf("2.DEQUEUE\n");
+printf("3.DISPLAY\n");
+printf("4.EXIT\n");
+printf("Enter your choice");
+scanf("%d",&ch);
+switch(ch)
+{
+case 1: printf("enter element you want to insert");
+scanf("%d",&ele);
+enqueue(ele);
+break;
+case 2: ele=dequeue();
+if(ele!=-1)
+printf("Deleted element is %d",ele);
+else
+printf("UNDERFLOW");
+break;
+case 3: display();
+break;
+case 4: exit(0);
+
+break;
+default: printf("Invlaid choice");
+}
+}while(1);
+}
+void enqueue(int ele)
+{
+struct node *newnode;
+newnode=(struct node*)malloc(sizeof(struct node));
+newnode->data=ele;
+newnode->next=NULL;
+if(front==NULL)
+front=rear=newnode;
+else
+{
+rear->next=newnode;
+rear=newnode;
+}
+}
+int dequeue()
+{
+struct node *p;
+int ele;
+if(front==NULL)
+return -1;
+else
+{
+ele=front->data;
+p=front;
+front=front->next;
+free(p);
+return ele;
+}
+}
+void display()
+{
+struct node *p;
+p=front;
+if(p==NULL)
+printf("UNDERFLOW");
+else
+{
+while(p!=NULL)
+{
+printf("%d->",p->data);
+p=p->next;
+}
+
+printf("NULL");
+}
+}
