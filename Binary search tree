@@ -1,0 +1,158 @@
+/*program to implement binary search tree*/
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+int data;
+struct node *left,*right;
+};
+struct node *root=NULL;
+struct node* insert(struct node *r,int ele);
+struct node* deletenode(struct node *r,int ele);
+struct node* findmin(struct node *r);
+struct node* search(struct node *r,int key);
+void preorder(struct node *r);
+void inorder(struct node *r);
+void postorder(struct node *r);
+void main()
+{
+int ch,ele,key;
+struct node *s;
+do{
+printf("1.Insert\n");
+
+printf("2.Delete\n");
+printf("3.Search\n");
+printf("4.Preorder\n");
+printf("5.Inorder\n");
+printf("6.Postorder\n");
+printf("7.Exit\n");
+printf("enter your choice");
+scanf("%d",&ch);
+switch(ch)
+{
+case 1: printf("enter element you want ot insert");
+scanf("%d",&ele);
+root=insert(root,ele);
+break;
+case 2: printf("Enter element you wnat to delete");
+scanf("%d",&ele);
+root=deletenode(root,ele);
+if(root==NULL)
+printf("BST is empty");
+break;
+case 3: printf("enter element you want ot search");
+scanf("%d",&key);
+s=search(root,key);
+if(s==NULL)
+printf("%d is not found",key);
+else
+printf("%d is found",key);
+break;
+case 4: preorder(root);
+break;
+case 5: inorder(root);
+break;
+case 6: postorder(root);
+break;
+case 7: exit(0);
+break;
+default: printf("INvalid choice");
+}
+}while(1);
+}
+struct node* insert(struct node *r,int ele)
+{
+struct node *newnode;
+if(r==NULL)
+{
+newnode=(struct node*)malloc(sizeof(struct node));
+
+newnode->data=ele;
+newnode->left=NULL;
+newnode->right=NULL;
+return newnode;
+}
+else if(ele<r->data)
+r->left=insert(r->left,ele);
+else
+r->right=insert(r->right,ele);
+return r;
+}
+struct node* deletenode(struct node *r,int ele)
+{
+struct node *temp;
+if(r==NULL)
+return NULL;
+else if(ele<r->data)
+r->left=deletenode(r->left,ele);
+else if(ele>r->data)
+r->right=deletenode(r->right,ele);
+else
+{
+if(r->left!=NULL&&r->right!=NULL)
+{
+temp=findmin(r->right);
+r->data=temp->data;
+r->right=deletenode(r->right,temp->data);
+}
+else
+{
+temp=r;
+if(r->left==NULL)
+r=r->right;
+else if(r->right==NULL)
+r=r->left;
+else
+free(temp);
+}
+}
+return r;
+}
+struct node* findmin(struct node *r)
+{
+if(r==NULL)
+return NULL;
+
+else if(r->left!=NULL)
+return findmin(r->left);
+else
+return r;
+}
+struct node* search(struct node *r, int key)
+{
+if(r==NULL||key==r->data)
+return r;
+else if(key<r->data)
+return search(r->left,key);
+else
+return search(r->right,key);
+}
+void preorder(struct node *r)
+{
+if(r!=NULL)
+{
+printf("%d",r->data);
+preorder(r->left);
+preorder(r->right);
+}
+}
+void inorder(struct node *r)
+{
+if(r!=NULL)
+{
+inorder(r->left);
+printf("%d",r->data);
+inorder(r->right);
+}
+}
+void postorder(struct node *r)
+{
+if(r!=NULL)
+{
+postorder(r->left);
+postorder(r->right);
+printf("%d",r->data);
+}
+}
+
